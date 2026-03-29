@@ -1,36 +1,43 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Trilha Encantada de Português
 
-## Getting Started
+Site de estudo em português do Brasil para apoiar o 4º ano, usando os materiais da pasta `source_docs` como base para:
 
-First, run the development server:
+- trilhas de aprendizagem com lendas, estrutura narrativa e discurso direto/indireto
+- galeria do material original
+- teste com correção guiada por Gemini
+
+## Rodando localmente
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Se `localhost:3000` estiver ocupado por outro projeto, rode em outra porta:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+npm run dev -- --port 3001
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Gemini
 
-## Learn More
+Crie um arquivo `.env.local` com uma das variáveis:
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+GOOGLE_GENERATIVE_AI_API_KEY=...
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+ou
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```bash
+GEMINI_API_KEY=...
+```
 
-## Deploy on Vercel
+Sem a chave, a área de correção continua visível, mas a API retorna uma mensagem pedindo configuração.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Estrutura principal
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- `src/components/study/portuguese-study-hub.tsx`: interface principal
+- `src/lib/study-content.ts`: trilhas, metas e perguntas
+- `src/app/api/materials/[filename]/route.ts`: entrega as imagens da pasta `source_docs`
+- `src/app/api/test-feedback/route.ts`: envia respostas para o Gemini e retorna a correção
